@@ -7,6 +7,7 @@ import React, { useEffect, useState } from 'react'
 import { useSession } from 'next-auth/react';
 import Script from 'next/script';
 import Image from 'next/image';
+// import Razorpay from 'razorpay';
 
 
 const PetBuy = ({ params }: { params: { pet: string }}) => {
@@ -69,7 +70,7 @@ const PetBuy = ({ params }: { params: { pet: string }}) => {
       },
     };
 
-    var rzp1 = new Razorpay(options);
+    var rzp1 = new (window as any).Razorpay(options);
     rzp1.open();
   };
 
