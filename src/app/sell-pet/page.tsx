@@ -69,12 +69,12 @@ const SellPetPage = () => {
     }
 
    return (
-    <div className="flex justify-center items-center min-h-screen bg-black w-full lg:p-8 p-4">
-        <div className="lg:w-[60%] w-[95%] lg:p-8 p-4 space-y-8 bg-white rounded-xl shadow-2xl border-4 border-orange-500">
+    <div className="flex justify-center items-center min-h-screen bg-black w-full lg:p-8 p-3">
+        <div className="lg:w-[60%] w-[95%] lg:p-8 p-2 space-y-8 bg-white rounded-xl shadow-2xl border-4 border-orange-500">
 
             <div className="text-center">
-                <h1 className="text-3xl font-bold lg:text-5xl lg:mb-6 mb-2">Welcome to Pet World</h1>
-                <p className="mb-4 lg:text-3xl text-2xl font-semibold">Sell your pet</p>
+                <h1 className="text-2xl font-bold lg:text-5xl lg:mb-6 mb-2">Welcome to Pet World</h1>
+                <p className="mb-4 lg:text-3xl text-xl font-semibold">Sell your pet</p>
             </div>
 
             <Form {...form}>

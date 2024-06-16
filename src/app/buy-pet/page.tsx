@@ -47,8 +47,8 @@ const BuyPetPage = () => {
       <div className="w-full">
         
         <div className="flex flex-col justify-center items-center gap-2 text-white">
-            <h1 className="text-5xl font-bold uppercase">Buy a pet</h1>
-            <p className="lg:text-3xl text-xl font-semibold">See all pets and buy one that you like</p>
+            <h1 className="lg:text-5xl text-3xl font-bold uppercase">Buy a pet</h1>
+            <p className="lg:text-3xl text-lg font-semibold">See all pets and buy one for yourself</p>
         </div>
 
         <div className="flex flex-col items-center justify-center mt-10 p-2 w-full">

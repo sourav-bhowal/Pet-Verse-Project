@@ -74,12 +74,12 @@ const SignUpPage = () => {
 
 
   return (
-    <div className="flex justify-center items-center min-h-screen bg-gray-100 w-full p-8">
-        <div className="w-[60%] p-8 space-y-8 bg-white rounded-xl shadow-2xl">
+    <div className="flex justify-center items-center min-h-screen bg-gradient-to-r from-red-500 to-orange-500 w-full lg:p-8 p-3">
+        <div className="lg:w-[60%] p-8 space-y-8 bg-white rounded-xl shadow-2xl w-full border-black border-2">
 
             <div className="text-center">
-                <h1 className="text-4xl font-bold lg:text-5xl mb-6">Welcome to Pet World</h1>
-                <p className="mb-4 text-3xl font-semibold">Sign up to continue</p>
+                <h1 className="text-2xl font-bold lg:text-5xl lg:mb-6 mb-3">Welcome to Pet World</h1>
+                <p className="mb-4 lg:text-3xl text-xl font-semibold">Sign up to continue</p>
             </div>
 
             <Form {...form}>
@@ -171,7 +171,7 @@ const SignUpPage = () => {
 
                     <p className= "text-red-500 text-xs">* Are required fields</p>
 
-                    <Button type="submit" disabled={isSubmitting}>
+                    <Button type="submit" disabled={isSubmitting} className="bg-orange-500 hover:bg-orange-600">
                         {
                             isSubmitting ? (
                                 <Loader2 className="mr-2 h-4 w-4 animate-spin">
@@ -185,7 +185,7 @@ const SignUpPage = () => {
             </Form>
 
             <div className="text-center mt-4">
-                <p className="text-medium text-gray-600">Already have an account? 
+                <p className="text-medium lg:text-lg text-sm text-gray-600">Already have an account? 
                     <Link href="/login" className="text-blue-500 underline"> Log in</Link>
                 </p>
             </div>

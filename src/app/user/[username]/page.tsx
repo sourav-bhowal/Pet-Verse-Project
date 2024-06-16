@@ -30,18 +30,18 @@ const ProfilePage = ({ params }: { params: { username: string }}) => {
 
 
   return (
-    <div className="flex justify-center min-h-screen bg-black w-full lg:p-8 p-4 text-white">
+    <div className="flex justify-center min-h-screen bg-black w-full lg:p-8 p-3 text-white">
 
       <div className='flex flex-col mt-10 lg:flex-row bg-gray-900 w-[90vh] h-[60vh] rounded-xl lg:p-16 p-8 border-orange-500 border-4'>
 
         <div className='flex flex-col gap-10'>
           <div className='space-y-2'>
-            <h1 className='text-3xl font-bold capitalize'>Name: {userDetails.name}</h1>
-            <h2 className='text-2xl font-semibold'>Username: {userDetails.username}</h2>
-            <p className='text-lg font-semibold'>Email: {userDetails.email}</p>
+            <h1 className='lg:text-3xl text-2xl font-bold capitalize'>Name: {userDetails.name}</h1>
+            <h2 className='lg:text-2xl text-lg font-semibold'>Username: {userDetails.username}</h2>
+            <p className='lg:text-lg text-sm font-semibold'>Email: {userDetails.email}</p>
           </div>
 
-          <div className='text-xl font-medium flex gap-5 lg:flex-row flex-col lg:w-full w-[60%]'>
+          <div className='text-xl font-medium flex gap-5 lg:flex-row flex-col w-full '>
             <p className='bg-orange-500 px-3 py-3 rounded-xl'>Pets Sold: {userDetails.petOwner}</p>
             <p className='bg-orange-500 px-3 py-3 rounded-xl'>Pets Bought: <span>
               {

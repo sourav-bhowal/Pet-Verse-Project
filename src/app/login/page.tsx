@@ -78,7 +78,7 @@ const LoginPage = () => {
         <div className="lg:w-[60%] w-full p-8 space-y-8 bg-white rounded-lg shadow-2xl border-orange-500 border-4">
 
             <div className="text-center">
-                <h1 className="text-4xl font-bold lg:text-5xl lg:mb-6 mb-2">Welcome Back to Pet World</h1>
+                <h1 className="text-3xl font-bold lg:text-5xl lg:mb-6 mb-2">Welcome Back to Pet World</h1>
                 <p className="mb-4 lg:text-3xl text-xl font-semibold">Login to your account</p>
             </div>
 
@@ -115,7 +115,7 @@ const LoginPage = () => {
 
                     <p className= "text-red-500 text-xs">* Are required fields</p>
 
-                    <Button type="submit" disabled={isSubmitting}>
+                    <Button type="submit" disabled={isSubmitting} className="bg-orange-500 hover:bg-orange-600">
                        {
                            isSubmitting ? (
                            <Loader2 className="mr-2 h-4 w-4 animate-spin">
