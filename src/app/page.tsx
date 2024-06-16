@@ -4,8 +4,8 @@ import Link from "next/link";
 
 export default function Home() {
   return (
-    <main className="flex w-full flex-col items-center justify-between lg:p-8 p-4 gap-5 bg-black">
-      <div className="min-h-[90vh] w-full p-4 rounded-xl flex flex-col justify-center items-center 
+    <main className="flex w-full flex-col items-center justify-between lg:p-6 p-3 gap-5 bg-black">
+      <div className="min-h-[90vh] w-full lg:p-4 p-2 rounded-xl flex flex-col justify-center items-center 
         lg:bg-[url('https://wallpapercave.com/wp/wp2534955.jpg')] lg:bg-center bg-[url('/dog2.png')] bg-right">
       <h2 className="text-white lg:text-7xl text-[47px] font-bold text-center">
           Welcome to Pet World
