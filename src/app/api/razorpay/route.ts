@@ -46,7 +46,7 @@ export async function POST(request: Request) {
             // Send success response and redirect to payment success page
             await PetModel.findByIdAndUpdate(updatedPayment.pet, { soldOut: true });
 
-            return NextResponse.redirect(`${process.env.NEXT_PUBLIC_BASE_URL}/buy-pet/?paymentdone=true`);
+            return NextResponse.redirect(`${process.env.NEXT_PUBLIC_BASE_URL}/?paymentdone=true`);
         }
     }
 };

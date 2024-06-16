@@ -102,9 +102,20 @@ const PetBuy = ({ params }: { params: { pet: string }}) => {
 
           <div className='lg:text-2xl text-xl font-bold mt-8 flex lg:gap-20 gap-5'>
             <p className='bg-orange-500 px-4 py-3 rounded-xl'>₹{pet.price}</p>
-            <button
+            {
+              pet.soldOut ? (
+                <button
+                className='bg-gray-500 text-orange-500 px-4 py-3 rounded-xl cursor-not-allowed'>
+                Sold Out
+              </button>
+              ) : (
+                <button
             onClick={() => pay(pet.price * 100)}
-            className='bg-white text-orange-500 px-4 py-3 rounded-xl hover:bg-orange-500 hover:text-black'>Buy Now</button>
+            className='bg-white text-orange-500 px-4 py-3 rounded-xl hover:bg-orange-500 hover:text-black'>
+              Buy Now
+            </button>
+              )
+            }
           </div>
           <p className='text-sm text-orange-500'>*Payment secured with Razorpay</p>
         </div>
