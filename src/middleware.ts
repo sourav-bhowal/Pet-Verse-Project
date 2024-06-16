@@ -18,10 +18,11 @@ export async function middleware(request: NextRequest) {
     }
 
     if (
-        (!token && url.pathname.startsWith("/buy-pet")) ||
-        (url.pathname.startsWith("/sell-pet")) ||
-        url.pathname.startsWith("/user/:path*") ||
-        url.pathname.startsWith("/pet/:path*")
+        !token &&
+        (url.pathname.startsWith("/user") ||
+            url.pathname.startsWith("/buy-pet") ||
+            url.pathname.startsWith("/sell-pet") ||
+            url.pathname.startsWith("/pet"))
     ) {
         return NextResponse.redirect(new URL("/login", request.url));
     }
