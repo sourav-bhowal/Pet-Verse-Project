@@ -4,6 +4,7 @@ import { PaymentModel } from "@/models/Payment.models";
 import { UserModel } from "@/models/User.models";
 import { DBConnect } from "@/lib/DbConnect";
 import { PetModel } from "@/models/Pet.models";
+import { redirect } from "next/navigation";
 
 // Route for verifying payment
 export async function POST(request: Request) {
@@ -46,7 +47,7 @@ export async function POST(request: Request) {
             // Send success response and redirect to payment success page
             await PetModel.findByIdAndUpdate(updatedPayment.pet, { soldOut: true });
 
-            return NextResponse.redirect(`${process.env.NEXT_PUBLIC_BASE_URL}/buy-pet`);
+            redirect(`${process.env.NEXT_PUBLIC_BASE_URL}/buy-pet/?paymentdone=true`);
         }
     }
 };
