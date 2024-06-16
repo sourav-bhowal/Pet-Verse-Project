@@ -13,7 +13,9 @@ export const metadata: Metadata = {
   title: "Pet World",
   description: "We provide a one stop solution for selling and buying pets",
   icons: {
-    icon: "/icons8-p-96.png",
+    icon: [
+      {url: "/icons8-p-96.png"},
+    ]
   }
 };
 
