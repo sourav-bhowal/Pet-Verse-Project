@@ -2,7 +2,6 @@
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import * as z from "zod"
-import Link from "next/link";
 import { useState } from "react";
 import { useToast } from "@/components/ui/use-toast"
 import { useRouter } from "next/navigation";
@@ -12,7 +11,6 @@ import { Loader2 } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Button } from "@/components/ui/button";
-import {CldUploadWidget, CloudinaryUploadWidgetInfo} from "next-cloudinary";
 import ImageUpload from "@/components/shared/ImageUpload";
 
 

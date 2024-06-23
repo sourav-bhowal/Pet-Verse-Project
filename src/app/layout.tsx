@@ -5,7 +5,7 @@ import AuthProvider from "@/context/AuthProvider";
 import { Toaster } from "@/components/ui/toaster"
 import Navbar from "@/components/shared/Navbar";
 import { Footer } from "@/components/shared/Footer";
-
+import QueryProvider from "@/context/QueryProvider";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -19,6 +19,7 @@ export const metadata: Metadata = {
   }
 };
 
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -27,12 +28,14 @@ export default function RootLayout({
   return (
     <html lang="en">
       <AuthProvider>
-      <body className={inter.className}>
-        <Navbar />
-        {children}
-        <Toaster />
-        <Footer />
-      </body>
+        <QueryProvider>
+          <body className={inter.className}>
+            <Navbar />
+            {children}
+            <Toaster />
+            <Footer />
+          </body>
+        </QueryProvider>
       </AuthProvider>
     </html>
   );
