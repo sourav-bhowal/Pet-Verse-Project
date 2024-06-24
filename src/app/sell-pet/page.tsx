@@ -1,6 +1,6 @@
 "use client"
 import { zodResolver } from "@hookform/resolvers/zod"
-import { useForm } from "react-hook-form"
+import { SubmitHandler, useForm } from "react-hook-form"
 import * as z from "zod"
 import { useState } from "react";
 import { useToast } from "@/components/ui/use-toast"
@@ -12,6 +12,7 @@ import { Input } from "@/components/ui/input";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Button } from "@/components/ui/button";
 import ImageUpload from "@/components/shared/ImageUpload";
+import { useMutation } from "@tanstack/react-query";
 
 
 // "SellPetPage" client component
@@ -36,35 +37,66 @@ const SellPetPage = () => {
         },
     });
 
-    // handle form submission
-    const handleFormSubmit = async (data: z.infer<typeof PetSchema>) => {
-        setIsSubmitting(true);
-        try {
+    const { mutate } = useMutation({
+        mutationKey: ["sell-pet"],
+        mutationFn: async (data: z.infer<typeof PetSchema>) => {
+            setIsSubmitting(true);
+            // send data to server
             const response = await axios.post("/api/sell-pet", data);
-
-            if (response) {
-                toast({
-                    title: "Pet added successfully",
-                    description: "We've added your pet for sale.",
-                    variant: "default",
-                });
-                router.push("/");
-                setIsSubmitting(false);
-            }
-        }
-        catch (error) {
+        },
+        onSuccess: () => {
+            // handle success
+            toast({
+                title: "Pet added successfully",
+                description: "We've added your pet for sale.",
+                variant: "default",
+            });
+            router.push("/");
+            setIsSubmitting(false);
+        },
+        onError: (error) => {
             // handle error
             const AxiosError = error as AxiosError<any>;
             let errorMessage = AxiosError.response?.data.message ?? "An error occurred. Please try again.";
-
+            // toast
             toast({
                 variant: "destructive",
                 title: "Sell pet failed",
-                description: errorMessage,
+                description: errorMessage,  
             });
             setIsSubmitting(false);
-        }
-    }
+        },
+    });
+
+    // handle form submission
+    // const handleFormSubmit = async (data: z.infer<typeof PetSchema>) => {
+    //     setIsSubmitting(true);
+    //     try {
+    //         const response = await axios.post("/api/sell-pet", data);
+
+    //         if (response) {
+    //             toast({
+    //                 title: "Pet added successfully",
+    //                 description: "We've added your pet for sale.",
+    //                 variant: "default",
+    //             });
+    //             router.push("/");
+    //             setIsSubmitting(false);
+    //         }
+    //     }
+    //     catch (error) {
+    //         // handle error
+    //         const AxiosError = error as AxiosError<any>;
+    //         let errorMessage = AxiosError.response?.data.message ?? "An error occurred. Please try again.";
+
+    //         toast({
+    //             variant: "destructive",
+    //             title: "Sell pet failed",
+    //             description: errorMessage,
+    //         });
+    //         setIsSubmitting(false);
+    //     }
+    // }
 
    return (
     <div className="flex justify-center items-center min-h-screen bg-black w-full lg:p-8 p-3">
@@ -76,7 +108,9 @@ const SellPetPage = () => {
             </div>
 
             <Form {...form}>
-                <form onSubmit={form.handleSubmit(handleFormSubmit)} className="space-y-6">
+                <form onSubmit={(e) => form.handleSubmit(mutate as SubmitHandler<z.infer<typeof PetSchema>>)(e)} 
+                className="space-y-6"
+                >
 
                     <FormField
                         control={form.control}
