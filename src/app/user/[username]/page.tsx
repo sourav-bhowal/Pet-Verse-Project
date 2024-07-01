@@ -1,33 +1,65 @@
 "use client"
 import { toast } from '@/components/ui/use-toast';
 import { IPayment } from '@/models/Payment.models';
+import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 
 const ProfilePage = ({ params }: { params: { username: string }}) => {
 
-  const [userDetails, setUserDetails] = useState({} as any);
+  // const [userDetails, setUserDetails] = useState({} as any);
 
-  useEffect(() => {
-    const fetchUser = async() =>  {
-      // DB call
-      const response = await axios.get(`/api/user/${params.username}`);
-      if (response) {
-        setUserDetails(response.data.data);
-      }
-      // error
-      else {
-        // toast
-        toast({
-          title: "User not found",
-          description: "The user you are looking for does not exist.",
-          variant: "destructive",
-        })
-      }
+  // useEffect(() => {
+  //   const fetchUser = async() =>  {
+  //     // DB call
+  //     const response = await axios.get(`/api/user/${params.username}`);
+  //     if (response) {
+  //       setUserDetails(response.data.data);
+  //     }
+  //     // error
+  //     else {
+  //       // toast
+  //       toast({
+  //         title: "User not found",
+  //         description: "The user you are looking for does not exist.",
+  //         variant: "destructive",
+  //       })
+  //     }
+  //   }
+  //   fetchUser();
+  // }, []);
+
+  // fetch user
+  const fetchuser = async() => {
+    const response = await axios.get(`/api/user/${params.username}`);
+    if (response) {
+      const data =  response.data.data;
+      return data;
     }
-    fetchUser();
-  }, []);
+  };
 
+  // use query
+  const {data: userDetails, isLoading, isError} = useQuery<any>({
+    queryKey: ["pets"],
+    queryFn: fetchuser,
+    staleTime: 10000
+  });
+
+  if (isError) {
+    toast({
+      title: "User not found",
+      description: "The user you are looking for does not exist.",
+      variant: "destructive",
+    })
+  }
+
+  if (isLoading) {
+    return (
+      <div className="flex justify-center min-h-screen bg-black w-full lg:p-8 p-3 text-white">
+        <p>Loading...</p>
+      </div>
+    )
+  }
 
   return (
     <div className="flex justify-center min-h-screen bg-black w-full lg:p-8 p-3 text-white">

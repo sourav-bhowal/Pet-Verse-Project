@@ -1,6 +1,6 @@
 "use client"
 import { zodResolver } from "@hookform/resolvers/zod"
-import { useForm } from "react-hook-form"
+import { SubmitHandler, useForm } from "react-hook-form"
 import * as z from "zod"
 import Link from "next/link";
 import { useState } from "react";
@@ -12,7 +12,7 @@ import { Loader2 } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Button } from "@/components/ui/button";
-
+import { useMutation } from "@tanstack/react-query";
 
 // "SignUp" client page
 const SignUpPage = () => {
@@ -35,40 +35,73 @@ const SignUpPage = () => {
         },
     });
 
+
     // submit form
-    const onSubmit = async (data: z.infer<typeof SignUpSchema>) => {
-
-        setIsSubmitting(true);
-
-        try {
+    const {mutate} = useMutation({
+        mutationKey: ["sign-up"],
+        mutationFn: async (data: z.infer<typeof SignUpSchema>) => {
+            setIsSubmitting(true);
             // send data to server
             const response = await axios.post("/api/sign-up", data);
-            
-            if (response) {
-                toast({
-                    title: "Account created successfully",
-                    description: "We've created your account for you.",
-                    variant: "default",
-                });
-                router.push("/login");
-
-                setIsSubmitting(false);
-            }
-        }
-        catch (error) {
+        },
+        onSuccess: () => {
+            // handle success
+            toast({
+                title: "Account created successfully",
+                description: "We've created your account for you.",
+                variant: "default",
+            });
+            router.push("/login");
+            setIsSubmitting(false);
+        },
+        onError: (error) => {
             // handle error
             const AxiosError = error as AxiosError<any>;
             let errorMessage = AxiosError.response?.data.message ?? "An error occurred. Please try again.";
-
+            // toast
             toast({
                 variant: "destructive",
                 title: "Sign up failed",
                 description: errorMessage,
             });
-
             setIsSubmitting(false);
-        }
-    };
+        },
+    })
+
+    // submit form
+    // const onSubmit = async (data: z.infer<typeof SignUpSchema>) => {
+
+    //     setIsSubmitting(true);
+
+    //     try {
+    //         // send data to server
+    //         const response = await axios.post("/api/sign-up", data);
+            
+    //         if (response) {
+    //             toast({
+    //                 title: "Account created successfully",
+    //                 description: "We've created your account for you.",
+    //                 variant: "default",
+    //             });
+    //             router.push("/login");
+
+    //             setIsSubmitting(false);
+    //         }
+    //     }
+    //     catch (error) {
+    //         // handle error
+    //         const AxiosError = error as AxiosError<any>;
+    //         let errorMessage = AxiosError.response?.data.message ?? "An error occurred. Please try again.";
+
+    //         toast({
+    //             variant: "destructive",
+    //             title: "Sign up failed",
+    //             description: errorMessage,
+    //         });
+
+    //         setIsSubmitting(false);
+    //     }
+    // };
 
 
 
@@ -83,7 +116,10 @@ const SignUpPage = () => {
             </div>
 
             <Form {...form}>
-                <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+                <form 
+                    onSubmit={(e) => form.handleSubmit(mutate as SubmitHandler<z.infer<typeof SignUpSchema>>)(e)} 
+                    className="space-y-6"
+                >
 
                     <FormField
                         control={form.control}
